@@ -1,0 +1,74 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Teams",
+        "description": "Team Actions Controller",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/team": {
+            "post": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Store a team",
+                "operationId": "0a13237ce291eafb4272c524322885f2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "": {
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Dev team"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    }
+                }
+            }
+        },
+        "/team/{team}": {
+            "delete": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Delete a team",
+                "operationId": "6c8af990df20ea9cd3297f3f14fd0eb1",
+                "parameters": [
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "description": "Team id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content. Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        }
+    }
+}
