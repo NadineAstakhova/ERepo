@@ -41,7 +41,7 @@ class CounterEloquentModel extends Model
 
     public function employees(): BelongsToMany
     {
-        return $this->belongsToMany(EmployeeEloquentModel::class)
+        return $this->belongsToMany(EmployeeEloquentModel::class, 'employee_counter', 'counter_id', 'employee_id')
             ->withPivot('steps_value')
             ->using(EmployeeCounterEloquentPivotModel::class);
     }

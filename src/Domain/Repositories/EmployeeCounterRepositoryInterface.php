@@ -3,6 +3,8 @@
 namespace Src\Domain\Repositories;
 
 use Src\Domain\Models\EmployeeCounter;
+use Src\Infrastructure\Database\EloquentModels\CounterEloquentModel;
+use Src\Infrastructure\Database\EloquentModels\EmployeeEloquentModel;
 
 interface EmployeeCounterRepositoryInterface
 {
@@ -12,5 +14,5 @@ interface EmployeeCounterRepositoryInterface
 
     public function findById(int $id): EmployeeCounter;
 
-    public function increment(EmployeeCounter $employeeCounter);
+    public function increment(EmployeeEloquentModel $employee, CounterEloquentModel $counter);
 }

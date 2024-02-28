@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->foreignId ('counter_id');
             $table->foreign('counter_id')->references('id')->on('counters');
-            $table->integer('steps_value');
+            $table->integer('steps_value')->default(0);
             $table->timestamps();
+            //todo add unique
         });
     }
 

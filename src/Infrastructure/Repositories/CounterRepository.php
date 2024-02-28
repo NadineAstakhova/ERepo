@@ -2,6 +2,7 @@
 
 namespace Src\Infrastructure\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Src\Domain\Models\Counter;
 use Src\Domain\Repositories\CounterRepositoryInterface;
 use Src\Infrastructure\Mappers\CounterMapper;
@@ -26,8 +27,10 @@ class CounterRepository implements CounterRepositoryInterface
         // TODO: Implement findById() method.
     }
 
-    public function increment(Counter $counter)
+    public function increment(int $counterId): void
     {
-        // TODO: Implement increment() method.
+        DB::table('counters')
+            ->where('id', $counterId)
+            ->increment('sum_value');
     }
 }

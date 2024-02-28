@@ -49,6 +49,43 @@
                 }
             }
         },
+        "/employee/{employee}/counter/{counter}": {
+            "post": {
+                "tags": [
+                    "Counters"
+                ],
+                "summary": "Increment specific step counter for an employee and a common step counter for a team",
+                "operationId": "df5fbf171a97031fb8c7f01f5cd92f44",
+                "parameters": [
+                    {
+                        "name": "employee",
+                        "in": "path",
+                        "description": "Employee id",
+                        "required": true
+                    },
+                    {
+                        "name": "counter",
+                        "in": "path",
+                        "description": "Counter id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "401": {
+                        "description": "An employee and a counter have different teams"
+                    }
+                }
+            }
+        },
         "/team": {
             "post": {
                 "tags": [
