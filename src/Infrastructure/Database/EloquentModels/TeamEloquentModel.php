@@ -4,6 +4,7 @@ namespace Src\Infrastructure\Database\EloquentModels;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Src\Infrastructure\Database\Factories\TeamEloquentModelFactory;
 
 class TeamEloquentModel extends Model
@@ -34,6 +35,11 @@ class TeamEloquentModel extends Model
     protected static function newFactory(): TeamEloquentModelFactory
     {
         return TeamEloquentModelFactory::new();
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(EmployeeEloquentModel::class, 'team_id');
     }
 
 }
