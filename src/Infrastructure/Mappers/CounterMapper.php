@@ -27,4 +27,14 @@ class CounterMapper
             teamId: $teamId
         );
     }
+
+    public static function fromEloquent(CounterEloquentModel $counterEM): Counter
+    {
+        return new Counter(
+            id: $counterEM->id,
+            name: $counterEM->name,
+            teamId: $counterEM->team_id,
+            value: $counterEM->sum_value
+        );
+    }
 }

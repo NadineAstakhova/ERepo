@@ -15,7 +15,7 @@ class CounterService implements CounterServiceInterface
 
     ) {}
 
-    public function addCounterToTeam(array $data)
+    public function addCounterToTeam(array $data): void
     {
         $team = $this->teamRepository->findById($data['team_id']);
 
@@ -24,8 +24,9 @@ class CounterService implements CounterServiceInterface
         $this->counterRepository->store($counter);
     }
 
-    public function removeCounterFromTeam(int $counterId, int $teamId)
+    public function removeCounterFromTeam(int $counterId): void
     {
-        // TODO: Implement removeCounterFromTeam() method.
+        $counter = $this->counterRepository->findById($counterId);
+        $this->counterRepository->delete($counter);
     }
 }

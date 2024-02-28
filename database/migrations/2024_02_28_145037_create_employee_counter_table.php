@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('employee_counter', function (Blueprint $table) {
             $table->id();
             $table->foreignId ('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreignId ('counter_id');
-            $table->foreign('counter_id')->references('id')->on('counters');
+            $table->foreign('counter_id')->references('id')->on('counters')->onDelete('cascade');
             $table->integer('steps_value')->default(0);
             $table->timestamps();
             //todo add unique

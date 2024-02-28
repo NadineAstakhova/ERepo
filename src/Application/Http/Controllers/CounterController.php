@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Src\Application\Http\Requests\Counter\CounterToTeamCreateRequest;
 use Src\Domain\Contracts\CounterServiceInterface;
+use Src\Infrastructure\Database\EloquentModels\CounterEloquentModel;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class CounterController extends Controller
@@ -51,6 +52,32 @@ class CounterController extends Controller
         return response(
             null,
             ResponseAlias::HTTP_ACCEPTED
+        );
+
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/counter/{counter}",
+     *     summary="Delete a counter",
+     *     tags={"Counters"},
+     *     @OA\Parameter(
+     *          name="counter",
+     *          in="path",
+     *          description="Counter id",
+     *          required=true,
+     *       ),
+     *     @OA\Response(response=204, description="No Content. Successful operation"),
+     *     @OA\Response(response=404, description="Not Found")
+     * )
+     */
+    public function deleteAction(CounterEloquentModel $counter): Response
+    {
+        $this->counterService->removeCounterFromTeam($counter->id);
+
+        return response(
+            null,
+            ResponseAlias::HTTP_NO_CONTENT
         );
 
     }
