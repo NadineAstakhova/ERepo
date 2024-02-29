@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->foreignId ('team_id');
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
