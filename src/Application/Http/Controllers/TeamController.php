@@ -76,7 +76,7 @@ class TeamController extends Controller
      */
     public function deleteAction(TeamEloquentModel $team)
     {
-        $this->teamService->deleteTeam($team->id);
+        $this->teamService->deleteTeam(teamId: $team->id);
 
         return response(
             null,

@@ -73,7 +73,7 @@ class CounterController extends Controller
      */
     public function deleteAction(CounterEloquentModel $counter): Response
     {
-        $this->counterService->removeCounterFromTeam($counter->id);
+        $this->counterService->removeCounterFromTeam(counterId: $counter->id);
 
         return response(
             null,

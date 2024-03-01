@@ -46,7 +46,7 @@ class EmployeeCounterController extends Controller
             );
         }
 
-        $steps = $this->employeeStepCounterService->incrementEmployeeStepCounter($employee, $counter);
+        $steps = $this->employeeStepCounterService->incrementEmployeeStepCounter(employee: $employee, counter: $counter);
 
         return response(
             $steps,

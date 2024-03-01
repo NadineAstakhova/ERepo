@@ -42,4 +42,9 @@ class TeamEloquentModel extends Model
         return $this->hasMany(EmployeeEloquentModel::class, 'team_id');
     }
 
+    public function counters(): HasMany
+    {
+        return $this->hasMany(CounterEloquentModel::class, 'team_id');
+    }
+
 }

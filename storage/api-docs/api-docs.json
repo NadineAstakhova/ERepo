@@ -49,6 +49,31 @@
                 }
             }
         },
+        "/counter/{counter}": {
+            "delete": {
+                "tags": [
+                    "Counters"
+                ],
+                "summary": "Delete a counter",
+                "operationId": "c64a4b361b0abfb10def106f6a2c2b1e",
+                "parameters": [
+                    {
+                        "name": "counter",
+                        "in": "path",
+                        "description": "Counter id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content. Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
         "/employee/{employee}/counter/{counter}": {
             "post": {
                 "tags": [
@@ -143,6 +168,66 @@
                 "responses": {
                     "204": {
                         "description": "No Content. Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/team/{team}/total/steps": {
+            "get": {
+                "tags": [
+                    "Teams Counters"
+                ],
+                "summary": "Get the current total steps taken by a team",
+                "operationId": "3d95e4b6699972701505a9a890b28316",
+                "parameters": [
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "description": "Team id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/team/{team}/employees/steps": {
+            "get": {
+                "tags": [
+                    "Teams Counters"
+                ],
+                "summary": "Get how much each team member have walked. The list of team employees with counters",
+                "operationId": "54d4b02b171cdd16c677204d4e1a4aff",
+                "parameters": [
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "description": "Team id",
+                        "required": true
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "path",
+                        "description": "Employees per page"
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Current page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
                     },
                     "404": {
                         "description": "Not Found"
