@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Infrastructure\Resources;
+namespace Src\Infrastructure\Resources\EmployeeWithCounters;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EmployeesWithCounterResource extends JsonResource
+class CounterWithStepsResource  extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,8 +17,9 @@ class EmployeesWithCounterResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'surname' => $this->surname,
-            'counters' => CounterWithStepsResource::collection($this->whenLoaded('counters')),
+            'steps_count' =>  $this->whenPivotLoaded("employee_counter", function () {
+                return $this->pivot->steps_value;
+            }),
         ];
     }
 }

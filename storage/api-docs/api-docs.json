@@ -194,6 +194,9 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    },
                     "404": {
                         "description": "Not Found"
                     }
@@ -229,8 +232,40 @@
                     "200": {
                         "description": "Successful operation"
                     },
+                    "422": {
+                        "description": "Unprocessable Content"
+                    },
                     "404": {
                         "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/teams/counters": {
+            "get": {
+                "tags": [
+                    "Teams Counters"
+                ],
+                "summary": "Get list all teams and their step counts",
+                "operationId": "27ea50badb2972cd98d188695a855003",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "path",
+                        "description": "Employees per page"
+                    },
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "Current page"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "422": {
+                        "description": "Unprocessable Content"
                     }
                 }
             }

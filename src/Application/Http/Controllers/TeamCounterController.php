@@ -7,8 +7,8 @@ use Illuminate\Http\Response;
 use Src\Application\Http\Requests\TeamCounter\PaginateRequest;
 use Src\Domain\Contracts\TeamCounterServiceInterface;
 use Src\Infrastructure\Database\EloquentModels\TeamEloquentModel;
-use Src\Infrastructure\Resources\EmployeesWithCounterCollection;
-use Src\Infrastructure\Resources\EmployeesWithCounterResource;
+use Src\Infrastructure\Resources\EmployeeWithCounters\EmployeesWithCounterCollection;
+use Src\Infrastructure\Resources\TeamWithCounters\TeamWithCountersCollection;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class TeamCounterController extends Controller
@@ -28,6 +28,7 @@ class TeamCounterController extends Controller
      *          required=true,
      *       ),
      *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=422, description="Unprocessable Content"),
      *     @OA\Response(response=404, description="Not Found")
      * )
      */
@@ -69,6 +70,7 @@ class TeamCounterController extends Controller
      *            description="Current page"
      *         ),
      *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=422, description="Unprocessable Content"),
      *     @OA\Response(response=404, description="Not Found")
      * )
      */
@@ -86,5 +88,39 @@ class TeamCounterController extends Controller
         );
 
     }
+
+    /**
+     * @OA\Get(
+     *     path="/teams/counters",
+     *     summary="Get list all teams and their step counts",
+     *     tags={"Teams Counters"},
+     *     @OA\Parameter(
+     *           name="per_page",
+     *           in="path",
+     *           description="Employees per page"
+     *        ),
+     *     @OA\Parameter(
+     *            name="page",
+     *            in="path",
+     *            description="Current page"
+     *         ),
+     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=422, description="Unprocessable Content")
+     * )
+     */
+    public function getAllTeamsWithCounters(PaginateRequest $request): Response
+    {
+        $teams = $this->teamCounterService->getAllTeamsWithCounters(
+            per_page: $request->per_page ?? 20,
+            page: $request->page ?? 1
+        );
+
+        return response(
+            new TeamWithCountersCollection($teams),
+            ResponseAlias::HTTP_OK
+        );
+
+    }
+
 
 }

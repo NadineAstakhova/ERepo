@@ -17,8 +17,13 @@ class TeamCounterService implements TeamCounterServiceInterface
         return $this->teamCounterRepository->getTotalSteps($teamId);
     }
 
-    public function getEmployeesInTeamWithSteps(int $teamId, int $per_page, int $page)
+    public function getEmployeesInTeamWithSteps(int $teamId, int $per_page = 20, int $page = 1)
     {
         return $this->teamCounterRepository->getEmployeesWithCounterFromTeam($teamId, $per_page, $page);
+    }
+
+    public function getAllTeamsWithCounters(int $per_page = 20, int $page = 1)
+    {
+        return $this->teamCounterRepository->getAllTeamsWithCounters($per_page, $page);
     }
 }

@@ -17,3 +17,4 @@ Route::post('employee/{employee}/counter/{counter}', [EmployeeCounterController:
 
 Route::get('team/{team}/total/steps', [TeamCounterController::class, 'getCurrentTotalStepsForTeam']);
 Route::get('team/{team}/employees/steps', [TeamCounterController::class, 'getEmployeesWithCounterFromTeam']);
+Route::get('teams/counters', [TeamCounterController::class, 'getAllTeamsWithCounters']);

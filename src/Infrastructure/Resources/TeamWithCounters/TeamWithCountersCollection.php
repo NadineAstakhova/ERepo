@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Infrastructure\Resources;
+namespace Src\Infrastructure\Resources\TeamWithCounters;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Request;
-class EmployeesWithCounterCollection extends ResourceCollection
-{
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-    public $collects = EmployeesWithCounterResource::class;
+class TeamWithCountersCollection extends ResourceCollection
+{
+    public $collects = TeamResource::class;
 
     /**
      * Transform the resource collection into an array.

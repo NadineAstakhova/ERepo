@@ -44,7 +44,7 @@ class TeamEloquentModel extends Model
 
     public function counters(): HasMany
     {
-        return $this->hasMany(CounterEloquentModel::class, 'team_id');
+        return $this->hasMany(CounterEloquentModel::class, 'team_id', 'id');
     }
 
 }
