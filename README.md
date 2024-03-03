@@ -7,11 +7,11 @@ I highlighted two main domain models according to the task: Team, Employee, Coun
 
 This approach gives us the opportunity to change the DB and communication between services.
 
-About "parallel using" - PHP as a language is thread safe itself. So for solution of the task I decided to use persistent layer to show how it could be done 
-for realistic situation. Yes, I can use multi-threading with pthreads and usual objects, however it isn't suitable for our task. As an engineer, I cannot recommend you to use pthread for developing. 
+About "parallel using" - PHP as a language is thread safe itself. So for the solution of the task I decided to use persistent layer to show how it could be done 
+for a realistic situation. Yes, I can use multi-threading with pthreads and usual objects, however it isn't suitable for our task. As an engineer, I cannot recommend you to use pthread for developing REST API. 
 For example, you can read this article https://www.sitepoint.com/parallel-programming-pthreads-php-fundamentals/ to understand why. The task itself is better for Java.
-But in standard project life the problematic situation with parallel using of data could be happened. 
-Imagine, we have more than one pod of our application but only one DB. For such case we can use transaction: realisation is <code>src/Infrastructure/Repositories/EmployeeCounterRepository.php</code>
+But in the standard project life the problematic situation with parallel using of data could be happened. 
+Imagine, we have more than one pod of our application but only one DB. For such case we can use transactions: the realisation is <code>src/Infrastructure/Repositories/EmployeeCounterRepository.php</code>
 
 ## Answers
 
@@ -54,3 +54,9 @@ Be sure that you have installed PHP 8.3, MySQL 8.0, Composer and your favorite l
 6. Execute <code>php artisan migrate</code>
 7. If you want, you can execute <code>php artisan db:seed</code> for testing data
 8. Perfect! You can access to the salary report via any of API routes
+
+
+## Notes
+
+- The default Laravel application creation contains some unnecessary configurations, files, I let myself not delete them and waste my time doing it. 
+- More abstractions could be added, but for the technical task, I think that's enough
