@@ -1,66 +1,56 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Approach
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+The core logic is contained in the directory <code>\src</code>.
 
-## About Laravel
+The main purpose of this implementation is to show the scalability of the code. That is why the architecture approach DDD was used. <br/>
+I highlighted two main domain models according to the task: Team, Employee, Counter, Employee step Counter.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This approach gives us the opportunity to change the DB and communication between services.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+About "parallel using" - PHP as a language is thread safe itself. So for solution of the task I decided to use persistent layer to show how it could be done 
+for realistic situation. Yes, I can use multi-threading with pthreads and usual objects, however it isn't suitable for our task. As an engineer, I cannot recommend you to use pthread for developing. 
+For example, you can read this article https://www.sitepoint.com/parallel-programming-pthreads-php-fundamentals/ to understand why. The task itself is better for Java.
+But in standard project life the problematic situation with parallel using of data could be happened. 
+Imagine, we have more than one pod of our application but only one DB. For such case we can use transaction: realisation is <code>src/Infrastructure/Repositories/EmployeeCounterRepository.php</code>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Answers
 
-## Learning Laravel
+1. Persistence: I suggest to use DB. Here I used MySQL. Perhaps, using PostgreSQL will be better in the situation of a lot of employees and a lot of requests to
+report links from <code>src/Application/Http/Controllers/TeamCounterController.php</code> Because via PostgreSQL we can create Materialized Views for such data.
+2. Fault tolerance: Making microservices - incrementing counters microservices; crud for counters; crud for teams; crud for employees; service for reporting links. 
+Also, we can separate db to read and write instance. 
+3. Scalability: a) Create rules for autoscaling of pods, load balancer. We can separate db to read and write instance and use PostgreSQL with Materialized View. 
+b) yes, to PostgreSQL.
+4. Authentication: a) I use Laravel, so it is easy. Add users table with roles and middleware to Laravel.  b_ It is about roles of users. 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Documentation is http://127.0.0.1/api/documentation.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Postman collection EfficyTask.postman_collection.json
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installation
 
-## Laravel Sponsors
+For working with an app I used Docker and Sail.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Using Docker and Sail
 
-### Premium Partners
+I'm using Windows, so these steps work for Windows. If you use Linux, the installation may be different.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+1. Be sure, that you have Docker Desktop and Ubuntu-20.04 like a distro.
+   If no, install via Terminal <code>wsl --install -d Ubuntu-20.04</code> and set as default <code>wsl --set-default Ubuntu-20.04</code>.
 
-## Contributing
+2. Run sail up Artisan command, which will start the docker container <code>bash ./vendor/laravel/sail/bin/sail up</code>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Common approach is https://medium.com/@mbilalnaeem/how-to-dockerize-laravel-using-laravel-sail-with-docker-desktop-wsl-2-backend-in-windows-e7033e28e1d
 
-## Code of Conduct
+### Usual local installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Be sure that you have installed PHP 8.3, MySQL 8.0, Composer and your favorite local server.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clone the project.
+2. At the directory of the project use the console command <code>composer install</code>
+3. Create .env and copy data from .env.example
+4. Execute <code>php artisan key:generate</code>
+5. Create a db and at local .env change configuration of the database to yours:<code>DB_HOST etc</code>
+6. Execute <code>php artisan migrate</code>
+7. If you want, you can execute <code>php artisan db:seed</code> for testing data
+8. Perfect! You can access to the salary report via any of API routes
