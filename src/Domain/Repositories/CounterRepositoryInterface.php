@@ -12,5 +12,10 @@ interface CounterRepositoryInterface
 
     public function findById(int $id): Counter;
 
+    /**
+     * Increment the summary of a counter
+     * @param int $counterId
+     * @return mixed
+     */
     public function increment(int $counterId);
 }

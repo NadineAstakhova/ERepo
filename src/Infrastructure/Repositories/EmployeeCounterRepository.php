@@ -38,6 +38,12 @@ class EmployeeCounterRepository implements EmployeeCounterRepositoryInterface
         return EmployeeCounterEloquentPivotModel::where('employee_id', $employeeId)->where('counter_id', $counterId)->first();
     }
 
+    /**
+     * Thread safe operation for incrementing counter for an employee
+     * @param EmployeeEloquentModel $employee
+     * @param CounterEloquentModel $counter
+     * @return EmployeeCounterEloquentPivotModel
+     */
     public function increment(EmployeeEloquentModel $employee, CounterEloquentModel $counter): EmployeeCounterEloquentPivotModel
     {
        $stepCounter = $this->findByEmployeeIdAndCounterId($employee->id, $counter->id);
@@ -47,6 +53,15 @@ class EmployeeCounterRepository implements EmployeeCounterRepositoryInterface
 
     }
 
+    /**
+     * Blocking data in DB for transaction.
+     * It uses for thread safe operation and only one user can do anything with the employee counter.
+     * In a transaction we increment a counter for an employee and the summary of a counter
+     * @param EmployeeEloquentModel $employee
+     * @param CounterEloquentModel $counter
+     * @param $stepCounter
+     * @return void
+     */
     public function transactionIncrement(EmployeeEloquentModel $employee, CounterEloquentModel $counter, $stepCounter = null): void
     {
         try {
@@ -69,6 +84,11 @@ class EmployeeCounterRepository implements EmployeeCounterRepositoryInterface
         }
     }
 
+    /**
+     * Optimal query for incrementing
+     * @param int $stepCounterId
+     * @return void
+     */
     private function incrementQuery(int $stepCounterId): void
     {
         DB::table('employee_counter')

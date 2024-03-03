@@ -12,7 +12,7 @@ class TeamCounterService implements TeamCounterServiceInterface
 
     ) {}
 
-    public function getTotalSteps(int $teamId)
+    public function getTotalSteps(int $teamId): int
     {
         return $this->teamCounterRepository->getTotalSteps($teamId);
     }

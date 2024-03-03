@@ -31,17 +31,26 @@ class EmployeeCounterController extends Controller
      *           description="Counter id",
      *           required=true,
      *       ),
-     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=200, description="Successful operation",
+     *     @OA\JsonContent(
+     *                  @OA\Property(property="employee", type="string", example="Alyson Lueilwitz"),
+     *                  @OA\Property(property="counter", type="string", example="test counter"),
+     *                  @OA\Property(property="steps", type="integer", example=4)
+     *              )
+     *     ),
      *     @OA\Response(response=422, description="Unprocessable Content"),
      *     @OA\Response(response=404, description="Not Found"),
-     *     @OA\Response(response=401, description="An employee and a counter have different teams")
+     *     @OA\Response(response=401, description="An employee and a counter have different teams",
+     *     @OA\JsonContent(
+     *                 @OA\Property(property="message", type="string", example="An employee doesn't have access to this counter")
+     *             ))
      * )
      */
     public function incrementAction(EmployeeEloquentModel $employee, CounterEloquentModel $counter): Response
     {
         if($employee->team_id !== $counter->team->id){
             return response(
-                ["error" => "An employee doesn't have access to this counter"],
+                ["message" => "An employee doesn't have access to this counter"],
                 ResponseAlias::HTTP_UNAUTHORIZED
             );
         }

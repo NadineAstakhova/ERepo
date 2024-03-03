@@ -44,7 +44,31 @@
                         "description": "Successful operation"
                     },
                     "422": {
-                        "description": "Unprocessable Content"
+                        "description": "Unprocessable Content",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The selected team id is invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "team_id": {
+                                                    "type": "object",
+                                                    "example": [
+                                                        "The selected team id is invalid."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -69,7 +93,20 @@
                         "description": "No Content. Successful operation"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No query results for model [Src\\\\Infrastructure\\\\Database\\\\EloquentModels\\\\CounterEloquentModel] 200"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -97,7 +134,28 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "employee": {
+                                            "type": "string",
+                                            "example": "Alyson Lueilwitz"
+                                        },
+                                        "counter": {
+                                            "type": "string",
+                                            "example": "test counter"
+                                        },
+                                        "steps": {
+                                            "type": "integer",
+                                            "example": 4
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Unprocessable Content"
@@ -106,7 +164,20 @@
                         "description": "Not Found"
                     },
                     "401": {
-                        "description": "An employee and a counter have different teams"
+                        "description": "An employee and a counter have different teams",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An employee doesn't have access to this counter"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -192,7 +263,25 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "total_steps": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
                         "description": "Unprocessable Content"

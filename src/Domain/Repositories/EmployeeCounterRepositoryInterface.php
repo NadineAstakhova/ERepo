@@ -14,5 +14,11 @@ interface EmployeeCounterRepositoryInterface
 
     public function findById(int $id): EmployeeCounter;
 
+    /**
+     * Thread safe operation for incrementing counter for an employee. Safe for parallel users
+     * @param EmployeeEloquentModel $employee
+     * @param CounterEloquentModel $counter
+     * @return mixed
+     */
     public function increment(EmployeeEloquentModel $employee, CounterEloquentModel $counter);
 }

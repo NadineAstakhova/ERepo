@@ -11,7 +11,7 @@ use Src\Infrastructure\Database\EloquentModels\TeamEloquentModel;
 class TeamCounterRepository implements TeamCounterRepositoryInterface
 {
 
-    public function getTotalSteps(int $teamId)
+    public function getTotalSteps(int $teamId): int
     {
         //I use a query builder for optimization. via eloquent here will be slower
        return DB::table('counters')

@@ -42,7 +42,13 @@ class CounterController extends Controller
      *          )
      *       ),
      *     @OA\Response(response=202, description="Successful operation"),
-     *     @OA\Response(response=422, description="Unprocessable Content")
+     *     @OA\Response(response=422, description="Unprocessable Content",
+     *     @OA\JsonContent(
+     *               @OA\Property(property="message", type="string", example="The selected team id is invalid."),
+     *               @OA\Property(property="errors", type="object",
+     *                   @OA\Property(property="team_id", type="object", example={"The selected team id is invalid."})
+     *               ),
+     *           ))
      * )
      */
     public function storeAction(CounterToTeamCreateRequest $request): Response
@@ -68,7 +74,10 @@ class CounterController extends Controller
      *          required=true,
      *       ),
      *     @OA\Response(response=204, description="No Content. Successful operation"),
-     *     @OA\Response(response=404, description="Not Found")
+     *     @OA\Response(response=404, description="Not Found",
+     *     @OA\JsonContent(
+     *                @OA\Property(property="message", type="string", example="No query results for model [Src\\Infrastructure\\Database\\EloquentModels\\CounterEloquentModel] 200")
+     *            ))
      * )
      */
     public function deleteAction(CounterEloquentModel $counter): Response

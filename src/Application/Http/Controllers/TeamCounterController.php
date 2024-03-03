@@ -27,7 +27,13 @@ class TeamCounterController extends Controller
      *          description="Team id",
      *          required=true,
      *       ),
-     *     @OA\Response(response=200, description="Successful operation"),
+     *     @OA\Response(response=200, description="Successful operation",
+     *          @OA\JsonContent(
+     *                 @OA\Property(property="data", type="object",
+     *                    @OA\Property(property="total_steps", type="integer", example=10)
+     *                )
+     *               )
+     *     ),
      *     @OA\Response(response=422, description="Unprocessable Content"),
      *     @OA\Response(response=404, description="Not Found")
      * )
